@@ -148,6 +148,7 @@
         return this.$utils.Date.format(parseInt(timespan / 1000), ft)
       },
       async sendPay (value, label) {
+        this.isShowPayMent = false
         let result = await this.BLL.getLoanByPay(this.loadId, parseInt(value))
         this.payFormHtml = result.result.payFormHtml
         setTimeout(function () {

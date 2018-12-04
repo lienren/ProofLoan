@@ -30,6 +30,16 @@
   import { setTimeout } from 'timers'
 
   export default {
+    components: {
+      Draw,
+      XButton,
+      Group,
+      Popup,
+      Radio
+    },
+    directives: {
+      TransferDom
+    },
     data () {
       return {
         degree: 0,
@@ -64,14 +74,6 @@
         ],
         payFormHtml: ''
       }
-    },
-    components: {
-      Draw,
-      XButton,
-      Group,
-      Popup,
-      TransferDom,
-      Radio
     },
     mounted () {
       this.canvasBox = document.getElementById('canvasBox')
@@ -144,7 +146,8 @@
         }
       },
       async sendPay (value, label) {
-        let result = await this.BLL.getLoanByPay(this.loadId, parseInt(value))
+        this.isShowPayMent = false
+        let result = await this.BLL.getLoanByPay(this.loanId, parseInt(value))
         this.payFormHtml = result.result.payFormHtml
         if (this.payFormHtml) {
           setTimeout(function () {
