@@ -134,14 +134,9 @@ export default class extends Base {
     })
 
     if (result && result.code === '000000' && result.result && result.result.id) {
-      if (proof.serviceMoney === 0) {
-        return ''
-      } else {
-        let resultPay = await api.getLoanByPay({
-          loanId: result.result.id
-        })
-        return resultPay && resultPay.result && resultPay.result.payFormHtml ? resultPay.result.payFormHtml : ''
-      }
+      return result.result.id
+    } else {
+      return 0
     }
   }
 
@@ -163,9 +158,10 @@ export default class extends Base {
     })
   }
 
-  async getLoanByPay (loanId) {
+  async getLoanByPay (loanId, payMentType) {
     let resultPay = await api.getLoanByPay({
-      loanId: loanId
+      loanId: loanId,
+      payMentType: payMentType
     })
     return resultPay
   }
