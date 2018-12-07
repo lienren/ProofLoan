@@ -12,7 +12,8 @@
       <x-button plain type="comm" @click.native="clear">清除签名</x-button>
     </div>
     <div v-transfer-dom>
-      <popup v-model="isShowPayMent" position="bottom" max-height="50%">
+      <popup v-model="isShowPayMent" position="bottom" max-height="60%">
+        <div style="text-align:center;font-size:14px;">请支付平台服务费：<span style="font-size:20px;color:#F56C6C;font-weight:400;">{{proofInfo.serviceMoney/100}}</span>元</div>
         <group title="请选择支付方式">
           <radio :options="payMentTypeList" @on-change="sendPay"></radio>
         </group>
@@ -46,8 +47,8 @@
         loanId: 0,
         isShowPayMent: false,
         payMentTypeList: [
+          { key: '1007', value: '微信（推荐）' },
           { key: '1006', value: '支付宝' },
-          { key: '1007', value: '微信' },
           { key: '963', value: '中国银行' },
           { key: '964', value: '农业银行' },
           { key: '965', value: '建设银行' },
@@ -147,13 +148,10 @@
       },
       async sendPay (value, label) {
         this.isShowPayMent = false
-        let result = await this.BLL.getLoanByPay(this.loanId, parseInt(value))
-        this.payFormHtml = result.result.payFormHtml
-        if (this.payFormHtml) {
-          setTimeout(function () {
-            document.getElementById('pay_form').submit()
-          }, 200)
-        }
+        this.$router.replace({
+          path: '/paying',
+          query: { loanId: this.loanId, payMentType: parseInt(value) }
+        })
       }
     }
   }

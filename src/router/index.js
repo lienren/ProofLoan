@@ -30,6 +30,7 @@ export const router = new Router({
     { path: '/cpstep3', component: view('login/cpstep3') },
     { path: '/cpstep4', component: view('login/cpstep4') },
     { path: '/detail', component: view('login/detail') },
+    { path: '/paying', component: view('login/paying') },
     { path: '/paysucc', component: view('login/paysucc') }
     // { path: '/input', component: view('demos/Input') }
     /* { path: '/home', component: view('demos/Home') },

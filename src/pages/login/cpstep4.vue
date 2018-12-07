@@ -40,9 +40,9 @@ export default {
       this.BLL.init()
     },
     computed: {
-      loadId () {
+      loanId () {
         let query = this.$route.query || {}
-        return parseInt(query.loadId || 0)
+        return parseInt(query.loanId || 0)
       },
       getHorizontalStyle () {
         const d = document
@@ -89,7 +89,7 @@ export default {
       },
       async next () {
         const image = this.draw.getPNGImage()
-        this.BLL.createProofStep4(this.loadId, image)
+        this.BLL.createProofStep4(this.loanId, image)
       }
     }
   }

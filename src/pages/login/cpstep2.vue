@@ -80,6 +80,11 @@
       this.BLL = new BLL(this)
       this.BLL.init()
     },
+    mounted () {
+      this.$nextTick(() => {
+        this.calculationServiceMoney()
+      })
+    },
     computed: {
       loadType () {
         let query = this.$route.query || {}
@@ -136,7 +141,8 @@
         })
       },
       async calculationServiceMoney () {
-        this.serviceMoney = await this.BLL.calculationServiceMoney(this.loanMoney)
+        let loanMoney = this.loanMoney ? parseFloat(this.loanMoney) : 0
+        this.serviceMoney = await this.BLL.calculationServiceMoney(loanMoney)
       }
     },
     watch: {}

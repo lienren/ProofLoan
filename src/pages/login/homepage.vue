@@ -118,7 +118,11 @@
         }
       },
       pendLoanTitle (item) {
-        return `【${item.loanTypeName}】借款:${parseFloat(item.loanMoney / 100)}元`
+        if (item.loanUserId > 0) {
+          return `【${item.loanUserRealName}】借款${parseFloat(item.loanMoney / 100)}元`
+        } else {
+          return `【借款人】借款${parseFloat(item.loanMoney / 100)}元`
+        }
       },
       pendLoanValue (item) {
         if (item.userId === this.authInfo.userId && item.state === 2) {
@@ -131,7 +135,7 @@
         return `${item.loanUseName}借款 ${this.$utils.Date.format(item.repayTime / 1000, 'yyyy年MM月dd日')}还款`
       },
       pendLoanLink (item) {
-        return { path: '/detail', query: { loadId: item.id } }
+        return { path: '/detail', query: { loanId: item.id } }
       },
       exit () {
         this.BLL.exit()

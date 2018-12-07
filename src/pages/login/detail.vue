@@ -49,14 +49,14 @@
       <x-button v-if="proofInfo.state===3&&proofInfo.masterUserId===authInfo.userId" type="comm" @click.native="sendState">确认已还款</x-button>
     </div>
     <div v-transfer-dom>
-      <popup v-model="isShowPayMent" position="bottom" max-height="50%">
+      <popup v-model="isShowPayMent" position="bottom" max-height="60%">
+        <div style="text-align:center;font-size:14px;">请支付平台服务费：<span style="font-size:20px;color:#F56C6C;font-weight:400;">{{proofInfo.serviceMoney/100}}</span>元</div>
         <group title="请选择支付方式">
           <radio :options="payMentTypeList" @on-change="sendPay"></radio>
         </group>
         <div style="height:15px;"></div>
       </popup>
     </div>
-    <div v-html="payFormHtml"></div>
   </div>
 </template>
 
@@ -88,8 +88,8 @@
         proofInfo: {},
         isShowPayMent: false,
         payMentTypeList: [
+          { key: '1007', value: '微信（推荐）' },
           { key: '1006', value: '支付宝' },
-          { key: '1007', value: '微信' },
           { key: '963', value: '中国银行' },
           { key: '964', value: '农业银行' },
           { key: '965', value: '建设银行' },
@@ -113,8 +113,7 @@
           { key: '985', value: '广东发展银行' },
           { key: '987', value: '东亚银行' },
           { key: '988', value: '渤海银行' }
-        ],
-        payFormHtml: ''
+        ]
       }
     },
     created () {
@@ -124,9 +123,9 @@
       this.getProof()
     },
     computed: {
-      loadId () {
+      loanId () {
         let query = this.$route.query || {}
-        return parseInt(query.loadId || 0)
+        return parseInt(query.loanId || 0)
       },
       authInfo () {
         return this.$store.state.auth.authInfo
@@ -141,7 +140,7 @@
         }
       },
       async getProof () {
-        this.proofInfo = await this.BLL.getProof(this.loadId)
+        this.proofInfo = await this.BLL.getProof(this.loanId)
         this.isShow = true
       },
       timespanToDateTime (timespan, ft = 'yyyy-MM-dd') {
@@ -149,21 +148,20 @@
       },
       async sendPay (value, label) {
         this.isShowPayMent = false
-        let result = await this.BLL.getLoanByPay(this.loadId, parseInt(value))
-        this.payFormHtml = result.result.payFormHtml
-        setTimeout(function () {
-          document.getElementById('pay_form').submit()
-        }, 200)
+
+        this.$router.replace({
+          path: '/paying',
+          query: { loanId: this.loanId, payMentType: parseInt(value) }
+        })
       },
       goToStep4 () {
-        console.log('cpstep4')
         this.$router.push({
           path: '/cpstep4',
-          query: { loadId: this.loadId }
+          query: { loanId: this.loanId }
         })
       },
       async sendState () {
-        await this.BLL.setLoanState(this.loadId, 4)
+        await this.BLL.setLoanState(this.loanId, 4)
         this.getProof()
       }
     },
