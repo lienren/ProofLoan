@@ -44,7 +44,7 @@
       },
       payMentType () {
         let query = this.$route.query || {}
-        return parseInt(query.payMentType || 0)
+        return query.payMentType
       }
     },
     methods: {

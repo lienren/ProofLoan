@@ -13,7 +13,8 @@
     </div>
     <div v-transfer-dom>
       <popup v-model="isShowPayMent" position="bottom" max-height="60%">
-        <div style="text-align:center;font-size:14px;">请支付平台服务费：<span style="font-size:20px;color:#F56C6C;font-weight:400;">{{proofInfo.serviceMoney/100}}</span>元</div>
+        <div style="text-align:center;font-size:14px;">请支付平台服务费：
+          <span style="font-size:20px;color:#F56C6C;font-weight:400;">{{proofInfo.serviceMoney/100}}</span>元</div>
         <group title="请选择支付方式">
           <radio :options="payMentTypeList" @on-change="sendPay"></radio>
         </group>
@@ -47,31 +48,25 @@
         loanId: 0,
         isShowPayMent: false,
         payMentTypeList: [
-          { key: '1007', value: '微信（推荐）' },
-          { key: '1006', value: '支付宝' },
-          { key: '963', value: '中国银行' },
-          { key: '964', value: '农业银行' },
-          { key: '965', value: '建设银行' },
-          { key: '967', value: '工商银行' },
-          { key: '981', value: '交通银行' },
-          { key: '970', value: '招商银行' },
-          { key: '971', value: '邮政储蓄' },
-          { key: '962', value: '中信银行' },
-          { key: '972', value: '兴业银行' },
-          { key: '978', value: '平安银行' },
-          { key: '980', value: '民生银行' },
-          { key: '986', value: '光大银行' },
-          { key: '982', value: '华夏银行' },
-          { key: '979', value: '南京银行' },
-          { key: '975', value: '上海银行' },
-          { key: '989', value: '北京银行' },
-          { key: '983', value: '杭州银行' },
-          { key: '968', value: '浙商银行' },
-          { key: '974', value: '深圳发展银行' },
-          { key: '977', value: '浦东发展银行' },
-          { key: '985', value: '广东发展银行' },
-          { key: '987', value: '东亚银行' },
-          { key: '988', value: '渤海银行' }
+          { key: 'alipaywap', value: '支付宝' },
+          { key: 'ICBC', value: '中国工商银行' },
+          { key: 'ABC', value: '中国农业银行' },
+          { key: 'BOCSH', value: '中国银行' },
+          { key: 'CCB', value: '建设银行' },
+          { key: 'CMB', value: '招商银行' },
+          { key: 'SPDB', value: '浦发银行' },
+          { key: 'GDB', value: '广发银行' },
+          { key: 'BOCOM', value: '交通银行' },
+          { key: 'PSBC', value: '邮政储蓄银行' },
+          { key: 'CNCB', value: '中信银行' },
+          { key: 'CMBC', value: '民生银行' },
+          { key: 'CEB', value: '光大银行' },
+          { key: 'HXB', value: '华夏银行' },
+          { key: 'CIB', value: '兴业银行' },
+          { key: 'BOS', value: '上海银行' },
+          { key: 'SRCB', value: '上海农商' },
+          { key: 'PAB', value: '平安银行' },
+          { key: 'BCCB', value: '北京银行' }
         ],
         payFormHtml: ''
       }
@@ -150,7 +145,7 @@
         this.isShowPayMent = false
         this.$router.replace({
           path: '/paying',
-          query: { loanId: this.loanId, payMentType: parseInt(value) }
+          query: { loanId: this.loanId, payMentType: value }
         })
       }
     }
