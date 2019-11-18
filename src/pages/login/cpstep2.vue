@@ -10,8 +10,8 @@
     </group>
     <div class="clearfix span"></div>
     <group title="借款信息">
-      <cell title="借款时间" :value="loanTime" @click.native="loanTimePopupShow=true"></cell>
-      <cell title="还款时间" :value="repayTime" @click.native="repayTimePopupShow=true"></cell>
+      <datetime title="借款时间" v-model="loanTime"></datetime>
+      <datetime title="还款时间" v-model="repayTime"></datetime>
       <x-input title="借款金额" v-model="loanMoney" placeholder="请输入借款金额" keyboard="number" type="tel" text-align="right" @on-blur="calculationServiceMoney"></x-input>
       <popup-picker title="年化利率" :data="rateList" v-model="rate" placeholder="请选择年化利率"></popup-picker>
       <popup-picker title="借款用途" :data="loanUseList" v-model="loanUse" placeholder="请选择借款用途"></popup-picker>
@@ -28,21 +28,13 @@
     <div class="btn-div">
       <x-button type="comm" @click.native="next" :disabled="disabled">下一步</x-button>
     </div>
-    <div v-transfer-dom>
-      <popup v-model="loanTimePopupShow">
-        <datetime-view v-model="loanTime"></datetime-view>
-      </popup>
-      <popup v-model="repayTimePopupShow">
-        <datetime-view v-model="repayTime"></datetime-view>
-      </popup>
-    </div>
   </div>
 </template>
 
 <script>
   import BLL from './index'
   import {
-    XInput, Group, XButton, Cell, DatetimeView, Popup, TransferDom, PopupPicker
+    XInput, Group, XButton, Cell, DatetimeView, Popup, TransferDom, PopupPicker, Datetime
   } from 'vux'
   import hideInput from '../../components/iHideInput.vue'
 
@@ -55,7 +47,8 @@
       hideInput,
       DatetimeView,
       Popup,
-      PopupPicker
+      PopupPicker,
+      Datetime
     },
     directives: {
       TransferDom

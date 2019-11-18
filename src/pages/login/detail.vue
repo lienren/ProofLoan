@@ -44,7 +44,7 @@
       <cell title="添加时间" :value="timespanToDateTime(proofInfo.addTime, 'yyyy-MM-dd hh:mm:ss')"></cell>
     </group>
     <div class="btn-div">
-      <x-button v-if="proofInfo.state===1&&proofInfo.isPay!==1" type="comm" @click.native="isShowPayMent=true">立即支付</x-button>
+      <x-button v-if="proofInfo.state===1&&proofInfo.isPay!==1" type="comm" @click.native="sendPay(1117, '')">立即支付</x-button>
       <x-button v-if="proofInfo.state===2&&proofInfo.confirmUserId===authInfo.userId" type="comm" @click.native="goToStep4">确认无误</x-button>
       <x-button v-if="proofInfo.state===3&&proofInfo.masterUserId===authInfo.userId" type="comm" @click.native="sendState">确认已还款</x-button>
     </div>
@@ -89,24 +89,9 @@
         proofInfo: {},
         isShowPayMent: false,
         payMentTypeList: [
-          { key: '917', value: '支付宝' },
-          { key: '920', value: '微信' },
-          { key: '101', value: '中国工商银行' },
-          { key: '201', value: '中国招商银行' },
-          { key: '301', value: '中国建设银行' },
-          { key: '401', value: '中国农业银行' },
-          { key: '501', value: '中信银行' },
-          { key: '701', value: '中国光大银行' },
-          { key: '801', value: '平安银行' },
-          { key: '1101', value: '交通银行' },
-          { key: '1201', value: '中国银行' },
-          { key: '1901', value: '广发银行' },
-          { key: '1902', value: '中国邮政储蓄银行' },
-          { key: '1903', value: '中国民生银行' },
-          { key: '1904', value: '华夏银行' },
-          { key: '1905', value: '兴业银行' },
-          { key: '1906', value: '上海银行' },
-          { key: '1909', value: '北京银行' }
+          // { key: '1114', value: '支付宝' },
+          { key: '1096', value: '微信' },
+          { key: '1117', value: '云闪付' }
         ]
       }
     },
